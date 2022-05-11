@@ -41,16 +41,19 @@ void alternaTarefa(int signum){
 
 	receive = 1;
 
-	if(alterna < queueSize - 1){
-		if (alterna >= 0){
-		kill(spid[alterna], SIGSTOP);
+	//fica alternaando o processo que está em execução
+
+	if(alterna < queueSize - 1){//tamanho do alterna não pode ser maaior do que a file-1
+		if (alterna >= 0){//alterna tem que ser maior que zero
+		kill(spid[alterna], SIGSTOP);//faz o processo pausar
 	}
 		alterna++;
 	}
 	else {
-		kill(spid[alterna], SIGSTOP);
+		//pausa o processo, muda o alterna pra zero e retorna o processo pausado
+		kill(spid[alterna], SIGSTOP);//faz o processo pausar
 		alterna = 0;
 	}
 
-	kill(spid[alterna], SIGCONT);
+	kill(spid[alterna], SIGCONT);//retorna um processo pausado pelo sinal SIGSTOP
 }
