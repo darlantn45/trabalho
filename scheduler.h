@@ -7,6 +7,7 @@ extern int queueSize;
 extern int pidx;
 int alterna;
 int receive;
+int *tempo;
 
 
 void alternaTarefa(int signum);

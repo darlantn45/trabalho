@@ -2,6 +2,26 @@
 #include "load_jobs.h"
 #include <unistd.h>
 #include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+void SJF_NP(int tempo[]){
+
+	int menor = 1000;
+	int aux;
+	for (int i = 0; i < queueSize; i++) {
+		if(tempo[i] > 0){
+			if(menor> tempo[i]){
+				menor = tempo[i];
+				aux = i;
+			}
+		}
+	}
+
+
+}
 
 extern void iniciarProcesso(int index);
 
@@ -14,11 +34,13 @@ void scheduler_init(char* jobs, float quantum){
 	loadJobs(jobs);
 
 	print_jobsQueue();
-
+	tempo = (int*) malloc(queueSize*sizeof(int));
 	int i;
 
 	for(i = 0; i < queueSize; i++){
+	tempo[i] = atoi(argumentos[i]);
 			iniciarProcesso(i);
+
 			kill(spid[i], SIGSTOP);
 	}
 	alterna = -1;
