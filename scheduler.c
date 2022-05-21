@@ -18,8 +18,12 @@ int confere(){
 int SJF_NP(){
 
 	int menor = 1000;
-	int aux;
-	for (int i = 0; i < queueSize; i++) {
+	int aux,fila;
+	if(modo == 1)
+		fila = np;
+	else
+		fila = queueSize;
+	for (int i = 0; i < fila; i++) {
 		if(tempo[i] > 0){
 			if(menor > tempo[i]){
 				menor = tempo[i];
@@ -27,6 +31,8 @@ int SJF_NP(){
 			}
 		}
 	}
+	if(np != queueSize)
+		np++;
 
 return aux;
 }
@@ -38,6 +44,9 @@ void scheduler_init(char* jobs, float quantum){
 	pidx = 0;
 	alterna = 1;
 	receive=0;
+	np = 1;
+	printf("Digite qual escalonador de processo deseja\n1 - SJF Nao-preemptivo\n2 - SJF preemptivo\n");
+	scanf("%i",&modo );
 
 	loadJobs(jobs);
 
@@ -51,7 +60,7 @@ void scheduler_init(char* jobs, float quantum){
 
 			kill(spid[i], SIGSTOP);
 	}
-	alterna = -1;
+	alterna = 0;
 
 
 	while(1){
@@ -75,25 +84,14 @@ void scheduler_init(char* jobs, float quantum){
 void alternaTarefa(int signum){
 	UNUSED(signum);
 
-	int aux = alterna;
+	int stop = alterna;
 
 	receive = 1;
 
 	alterna = SJF_NP(tempo);//recebe o menor processo
 	tempo[alterna] = tempo[alterna] - 1;//diminui o tempo do processo
-//	printf("%i\n",tempo[alterna] );
 
-	//fica alternaando o processo que está em execução
-
-	if(alterna < queueSize - 1){//tamanho do alterna não pode ser maaior do que a file-1
-			if (alterna >= 0){//alterna tem que ser maior que zero
-				kill(spid[aux], SIGSTOP);//faz o processo pausar
-		}
-		}
-		kill(spid[alterna], SIGCONT);//retorna um processo pausado pelo sinal SIGSTOP
-		// else {
-		// 	//pausa o processo, muda o alterna pra zero e retorna o processo pausado
-		// 	kill(spid[alterna], SIGSTOP);//faz o processo pausar
-		// }
+	kill(spid[stop], SIGSTOP);//faz o processo pausar
+	kill(spid[alterna], SIGCONT);//retorna um processo pausado pelo sinal SIGSTOP
 
 	}

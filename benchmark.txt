@@ -1,5 +1,4 @@
-./teste 3
-./teste2 4
-./teste3 2
-./teste4 1
-
+./teste 10
+./teste2 3
+./teste3 6
+./teste4 3

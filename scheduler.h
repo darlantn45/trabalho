@@ -7,6 +7,8 @@ extern int queueSize;
 extern int pidx;
 int alterna;
 int receive;
+int modo;
+int np;
 int *tempo;
 
 
