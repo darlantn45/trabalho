@@ -45,7 +45,7 @@ void scheduler_init(char* jobs, float quantum){
 	alterna = 1;
 	receive=0;
 	np = 1;
-	printf("Digite qual escalonador de processo deseja\n1 - SJF Nao-preemptivo\n2 - SJF preemptivo\n");
+	printf("Digite qual escalonador de processo deseja\n1 -SJF preemptivo\n2 -SJF Nao-preemptivo\n");
 	scanf("%i",&modo );
 
 	loadJobs(jobs);
@@ -88,7 +88,14 @@ void alternaTarefa(int signum){
 
 	receive = 1;
 
-	alterna = SJF_NP(tempo);//recebe o menor processo
+	if(modo == 2){
+	if(tempo[alterna] == 0){
+		alterna = SJF_NP();//recebe o menor processo
+	}
+}else{
+	alterna = SJF_NP();
+}
+
 	tempo[alterna] = tempo[alterna] - 1;//diminui o tempo do processo
 
 	kill(spid[stop], SIGSTOP);//faz o processo pausar
