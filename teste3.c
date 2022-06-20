@@ -1,13 +1,33 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+
+int main() {
+	// time_t start, end;
+  // time(&start);
+  long int a,b,c;
+  int n=70,cont;
+  double r;
 
 
+    a = 1;
+    b = 1;
+    cont = 2;
 
-int main(int argc, char* argv[])
-{
+    while(cont < n) {
+      c = a + b;
+      r = c;
+      r = r/b;
+      a = b;
+      b = c;
+      cont = cont + 1;
+      //eh a mesma coisa: cont++;
+    }
+		printf("O septuagésimo numero da sequencia de fibonace eh: %ld\n", c);
 
-	while(1){
-    	printf("Processo 3\n");
-	}
+	// time(&end);
+	// double time_take = (end-start);
+	// printf("%lf\n",time_take);
 
-	return 0;
+  return 0;
 }
